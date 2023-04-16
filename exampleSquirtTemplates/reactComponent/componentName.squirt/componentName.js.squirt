@@ -1,0 +1,7 @@
+const $<componentName>$ = ({ }) => {
+    return (
+        <></>
+    )
+}
+
+export default $<componentName>$

@@ -1,0 +1,14 @@
+import { useState } from 'react'
+
+const use$<hookName>$ = () => {
+    const [$<hookName>$, set$<hookName:cap>$] = useState()
+    const [isFetching, setIsFetching] = useState(false)
+
+    const fetch = () => {
+        setIsFetching(true)
+        // fetch
+        setIsFetching(false)
+    }
+
+    return [$<hookName>$, fetch, isFetching]
+}

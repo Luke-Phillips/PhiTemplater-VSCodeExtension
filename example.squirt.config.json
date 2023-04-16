@@ -1,0 +1,41 @@
+{
+  "templatesLocation": "./exampleSquirtTemplates",
+  "identifierPrefix": "$<",
+  "identifierSuffix": ">$",
+  "templates": [
+    {
+      "templateName": "React Component",
+      "templateDir": "reactComponent",
+      "templateFiles": [
+        {
+          "templateFilePath": "componentName/componentName.js.squirt",
+          "templateFileInstancePath": "$<componentName>$/$<componentName>$.js"
+        },
+        {
+          "templateFilePath": "componentName/index.js.squirt",
+          "templateFileInstancePath": "$<componentName>$/index.js"
+        }
+      ]
+    },
+    {
+      "templateName": "React Hook",
+      "templateDir": "reactHook",
+      "templateFiles": [
+        {
+          "templateFilePath": "useHook.js.squirt",
+          "templateFileInstancePath": "use$<hookName:cap>$.js"
+        }
+      ]
+    },
+    {
+      "templateDir": "ardalisEndpoint",
+      "templateName": "Ardalis Endpoint",
+      "templateFiles": [
+        {
+          "templateFilePath": "endpointName.js.squirt",
+          "templateFileInstancePath": "$<endpointName>$.js"
+        }
+      ]
+    }
+  ]
+}

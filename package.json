@@ -19,6 +19,12 @@
       }
     ],
     "menus": {
+      "commandPalette": [
+        {
+          "command": "squirt.squirt",
+          "when": "false"
+        }
+      ],
       "explorer/context": [
         {
           "command": "squirt.squirt",

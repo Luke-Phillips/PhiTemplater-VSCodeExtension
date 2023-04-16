@@ -1,0 +1,21 @@
+{
+  "templatesDir": "./exampleSquirtTemplates",
+  "identifierPrefix": "$<",
+  "identifierSuffix": ">$",
+  "templates": [
+    {
+      "templateName": "Template Name",
+      "templateDir": "templateDir",
+      "templateFiles": [
+        {
+          "templateFilePath": "path/to/template.ext.squirt",
+          "templateFileInstancePath": "path/to/instance/can/include/variables.ext",
+          "templateFileIdentifierPrefix": "",
+          "templateFileIdentifierSuffix": ""
+        }
+      ],
+      "templateIdentifierPrefix": "",
+      "templateIdentifierSuffix": ""
+    }
+  ]
+}

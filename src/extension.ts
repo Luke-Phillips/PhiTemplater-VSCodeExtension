@@ -1,51 +1,60 @@
-import * as vscode from "vscode";
-import { TextDecoder } from "node:util";
+import * as vscode from 'vscode';
+import { TextDecoder } from 'node:util';
+
+interface SquirtConfigTemplate {
+  templateLocation: string;
+  templateName: string;
+  identifierPrefix?: string;
+  identifierSuffix?: string;
+}
+interface SquirtConfig {
+  templateDirectory: string;
+  defaultIdentifierPrefix: string;
+  defaultIdentifierSuffix: string;
+  templates: Array<SquirtConfigTemplate>;
+}
+const getConfig = async () => {
+  const configFile = (
+    await vscode.workspace.findFiles('squirt.config.json')
+  )[0];
+  const configBytes = await vscode.workspace.fs.readFile(configFile);
+  const configRaw = new TextDecoder().decode(configBytes);
+  const config: SquirtConfig = JSON.parse(configRaw);
+  return config;
+};
+
+const showTemplateChooser = () => {
+  // pass
+};
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log("Congratulations, you are squirting!");
+  console.log('Squirt activated');
 
-  interface SquirtConfigTemplate {
-    templateLocation: string;
-    templateName: string;
-    identifierPrefix?: string;
-    identifierSuffix?: string;
-  }
-  interface SquirtConfig {
-    templateDirectory: string;
-    defaultIdentifierPrefix: string;
-    defaultIdentifierSuffix: string;
-    templates: Array<SquirtConfigTemplate>;
-  }
-  const getConfig = async () => {
-    const configFile = (
-      await vscode.workspace.findFiles("squirt.config.json")
-    )[0];
-    const configBytes = await vscode.workspace.fs.readFile(configFile);
-    const configRaw = new TextDecoder().decode(configBytes);
-    const config: SquirtConfig = JSON.parse(configRaw);
-    return config;
-  };
+  vscode.workspace.onDidSaveTextDocument((document: vscode.TextDocument) => {
+    vscode.window.showInformationMessage('omg we saved');
+    console.log('omg we saved');
+  });
 
-  const showTemplateChooser = () => {
-    // pass
-  };
-
-  let disposable = vscode.commands.registerCommand(
-    "squirt.squirt",
+  let squirtCmdDisposable = vscode.commands.registerCommand(
+    'squirt.squirt',
     async () => {
+      console.log('test');
       const config = await getConfig();
+      console.log('🚀 ~ file: extension.ts:38 ~ config:', config);
       const templateNames: string[] = config.templates.map(
         (template) => template.templateName
       );
-      const qpOptions = {
-        title: "Choose Squirt Template",
-        placeHolder: "search templates",
+      console.log('🚀 ~ file: extension.ts:42 ~ templateNames:', templateNames);
+      const templateChooserOptions = {
+        title: 'Choose Template',
+        placeHolder: 'search templates',
       };
       const templateName = await vscode.window.showQuickPick(
         templateNames,
-        qpOptions
+        templateChooserOptions
       );
-      console.log("🚀 ~ template name:", templateName);
+      console.log('🚀 ~ template name:', templateName);
+
       //   const directoryPath = __dirname; // todo came from args
       //   const options = { extension: null, templatesPath: "test" }; // todo came from args
       //   const templatePath = path.resolve(
@@ -74,13 +83,24 @@ export function activate(context: vscode.ExtensionContext) {
       //   console.log("destinationFileContents", destinationFileContents);
       //   // await fs.outputFile(destinationPath, destinationFileContents)
       vscode.window.showInformationMessage(
-        "Chosen template is " + templateName
+        'Chosen template is ' + templateName
       );
     }
   );
 
-  context.subscriptions.push(disposable);
+  let updateConfigCmdDisposable = vscode.commands.registerCommand(
+    'squirt.updateConfig',
+    () => {
+      console.log('update config test');
+      vscode.window.showInformationMessage('update config test');
+    }
+  );
+
+  context.subscriptions.push(squirtCmdDisposable);
+  context.subscriptions.push(updateConfigCmdDisposable);
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+  console.log('Squirt deactivated');
+}
