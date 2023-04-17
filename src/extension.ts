@@ -31,6 +31,26 @@ const isSquirtConfigured = async (
   return (await workspace.findFiles(configFilePattern, null, 1)).length > 0;
 };
 
+function configureSquirtForWorkspace(workspaceFolder: vscode.WorkspaceFolder) {
+  console.log('configureSquirtforWorkspace()');
+  // TODO
+  //     createSquirtConfigJsonFile()
+  const workspaceFolderPath = workspaceFolder.uri.fsPath;
+  const squirtConfigFileUri = vscode.Uri.file(
+    workspaceFolderPath + '/squirt.config.json'
+  );
+  const configFileEdit = new vscode.WorkspaceEdit();
+  const squirtContentBuffer = Buffer.from(
+    `{\n  "templatesLocation": "./squirtTemplates",\n  "templates": []\n}`
+  );
+  configFileEdit.createFile(squirtConfigFileUri, {
+    contents: squirtContentBuffer,
+  });
+  workspace.applyEdit(configFileEdit);
+  //     createSquirtTemplatesFolder()
+  //     open squirt.config.json ???
+}
+
 async function configureSquirt() {
   const workspaceFolders = workspace.workspaceFolders;
   if (workspaceFolders === undefined || workspaceFolders.length === 0) {
@@ -82,14 +102,6 @@ async function configureSquirt() {
   } else {
     window.showErrorMessage('Something went wrong: workspace folders');
   }
-}
-
-function configureSquirtForWorkspace(workspace: vscode.WorkspaceFolder) {
-  console.log('configureSquirtforWorkspace()');
-  // TODO
-  //     createSquirtConfigJsonFile()
-  //     createSquirtTemplatesFolder()
-  //     open squirt.config.json ???
 }
 
 const getConfig = async () => {
