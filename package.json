@@ -9,13 +9,19 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "workspaceContains:squirt.config.json"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "squirt.squirt",
         "title": "Squirt"
+      },
+      {
+        "command": "squirt.configure",
+        "title": "Configure Squirt"
       }
     ],
     "menus": {
