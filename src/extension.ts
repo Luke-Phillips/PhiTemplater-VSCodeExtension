@@ -32,9 +32,6 @@ const isSquirtConfigured = async (
 };
 
 function configureSquirtForWorkspace(workspaceFolder: vscode.WorkspaceFolder) {
-  console.log('configureSquirtforWorkspace()');
-  // TODO
-  //     createSquirtConfigJsonFile()
   const workspaceFolderPath = workspaceFolder.uri.fsPath;
   const squirtConfigFileUri = vscode.Uri.file(
     workspaceFolderPath + '/squirt.config.json'
@@ -47,6 +44,7 @@ function configureSquirtForWorkspace(workspaceFolder: vscode.WorkspaceFolder) {
     contents: squirtContentBuffer,
   });
   workspace.applyEdit(configFileEdit);
+  // TODO
   //     createSquirtTemplatesFolder()
   //     open squirt.config.json ???
 }
