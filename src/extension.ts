@@ -1,21 +1,29 @@
 import * as vscode from 'vscode';
 import { TextDecoder } from 'node:util';
+import {
+  SquirtConfig,
+  SquirtConfigTemplate,
+  SquirtConfigTemplateFile,
+} from './interfaces/configInterfaces';
+import { TemplateInstanceData } from './interfaces/templateInstanceInterfaces';
 
-interface SquirtConfigTemplate {
-  templateLocation: string;
-  templateName: string;
-  identifierPrefix?: string;
-  identifierSuffix?: string;
-}
-interface SquirtConfig {
-  templateDirectory: string;
-  defaultIdentifierPrefix: string;
-  defaultIdentifierSuffix: string;
-  templates: Array<SquirtConfigTemplate>;
-}
+// begin alt
+const getTemplatesDir = async () => {
+  const configFilePath = (
+    await vscode.workspace.findFiles('*/squirt.config.json')
+  )[0];
+  return configFilePath.path.split('/').slice(0, -1).join('/');
+};
+
+// const getTemplateNames = async() => {
+
+//   return []
+// }
+// end alt
+
 const getConfig = async () => {
   const configFile = (
-    await vscode.workspace.findFiles('squirt.config.json')
+    await vscode.workspace.findFiles('*/squirt.config.json')
   )[0];
   const configBytes = await vscode.workspace.fs.readFile(configFile);
   const configRaw = new TextDecoder().decode(configBytes);
@@ -23,7 +31,8 @@ const getConfig = async () => {
   return config;
 };
 
-const showTemplateChooser = () => {
+// Show QuickPick and return user-chosen template
+const getTemplateToSquirt = () => {
   // pass
 };
 
@@ -35,16 +44,21 @@ export function activate(context: vscode.ExtensionContext) {
     console.log('omg we saved');
   });
 
+  let squirtAltCmdDisposable = vscode.commands.registerCommand(
+    'squirt.squirtAlt',
+    async () => {
+      const templatesDir = getTemplatesDir();
+      console.log('🚀 ~ templatesDir:', templatesDir);
+    }
+  );
+
   let squirtCmdDisposable = vscode.commands.registerCommand(
     'squirt.squirt',
     async () => {
-      console.log('test');
       const config = await getConfig();
-      console.log('🚀 ~ file: extension.ts:38 ~ config:', config);
       const templateNames: string[] = config.templates.map(
         (template) => template.templateName
       );
-      console.log('🚀 ~ file: extension.ts:42 ~ templateNames:', templateNames);
       const templateChooserOptions = {
         title: 'Choose Template',
         placeHolder: 'search templates',
@@ -53,9 +67,45 @@ export function activate(context: vscode.ExtensionContext) {
         templateNames,
         templateChooserOptions
       );
-      console.log('🚀 ~ template name:', templateName);
+      if (templateName === undefined) {
+        return;
+      }
 
-      //   const directoryPath = __dirname; // todo came from args
+      //  for each file in template files
+      const template = config.templates.find(
+        (template) => template.templateName
+      );
+      if (template === undefined) {
+        return;
+      }
+      const templateDir = template.templateDir;
+      const templateFiles = template.templateFiles;
+      console.log('🚀 ~ templateFiles:', templateFiles);
+
+      let templateInstanceData: TemplateInstanceData;
+      for (const templateFile of templateFiles) {
+        console.log('🚀 ~ templateFile:', templateFile);
+        // const relativePattern = new vscode.RelativePattern(
+        //   templateDir,
+        //   templateFile.templateFilePath
+        // );
+        // console.log("🚀 ~ relativePattern:", relativePattern);
+        const files = await vscode.workspace.findFiles(
+          'squirtTemplates/test/test.squirt'
+        );
+        console.log('🚀 ~ files:', files);
+        const file = files[0];
+        console.log('🚀 ~ file:', file);
+        // const templateFileBytes = await vscode.workspace.fs.readFile(file);
+        // console.log("🚀 ~ templateFileBytes:", templateFileBytes);
+        // const templateFileRaw = new TextDecoder().decode(templateFileBytes);
+        // console.log("🚀 ~ templateFileRaw:", templateFileRaw);
+      }
+      //    for each variable
+      //      show in multi step quick pick and get value
+      //    store contents of file
+      // create every file or dir/.../file with filled variables
+
       //   const options = { extension: null, templatesPath: "test" }; // todo came from args
       //   const templatePath = path.resolve(
       //     __dirname,
@@ -96,7 +146,8 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  context.subscriptions.push(squirtCmdDisposable);
+  context.subscriptions.push(squirtAltCmdDisposable);
+  // context.subscriptions.push(squirtCmdDisposable);
   context.subscriptions.push(updateConfigCmdDisposable);
 }
 
