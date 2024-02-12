@@ -1,16 +1,16 @@
 import * as vscode from 'vscode';
 import { TextDecoder } from 'node:util';
 import {
-  SquirtConfig,
-  SquirtConfigTemplate,
-  SquirtConfigTemplateFile,
+  PhiTemplaterConfig,
+  PhiTemplaterConfigTemplate,
+  PhiTemplaterConfigTemplateFile,
 } from './interfaces/configInterfaces';
 import { TemplateInstanceData } from './interfaces/templateInstanceInterfaces';
 
 // begin alt
 const getTemplatesDir = async () => {
   const configFilePath = (
-    await vscode.workspace.findFiles('*/squirt.config.json')
+    await vscode.workspace.findFiles('*/phiTemplater.config.json')
   )[0];
   return configFilePath.path.split('/').slice(0, -1).join('/');
 };
@@ -23,62 +23,67 @@ const getTemplatesDir = async () => {
 
 const { commands, window, workspace } = vscode;
 
-const isSquirtConfigured = async (
+const isPhiTemplaterConfigured = async (
   workspaceFolder?: vscode.WorkspaceFolder
 ): Promise<boolean> => {
   if (!workspaceFolder) {
     return (
-      (await workspace.findFiles('squirt.config.json', null, 1)).length > 0
+      (await workspace.findFiles('phiTemplater.config.json', null, 1)).length >
+      0
     );
   }
   const configFilePattern = new vscode.RelativePattern(
     workspaceFolder,
-    '**/squirt.config.json'
+    '**/phiTemplater.config.json'
   );
   return (await workspace.findFiles(configFilePattern, null, 1)).length > 0;
 };
 
-function configureSquirtForWorkspace(workspaceFolder: vscode.WorkspaceFolder) {
+function configurePhiTemplaterForWorkspace(
+  workspaceFolder: vscode.WorkspaceFolder
+) {
   const workspaceFolderPath = workspaceFolder.uri.fsPath;
-  const squirtConfigFileUri = vscode.Uri.file(
-    workspaceFolderPath + '/squirt.config.json'
+  const phiTemplaterConfigFileUri = vscode.Uri.file(
+    workspaceFolderPath + '/phiTemplater.config.json'
   );
   const configFileEdit = new vscode.WorkspaceEdit();
-  const squirtContentBuffer = Buffer.from(
-    `{\n  "templatesLocation": "./squirtTemplates",\n  "templates": []\n}`
+  const phiTemplaterContentBuffer = Buffer.from(
+    `{\n  "templatesLocation": "./phiTemplates",\n  "templates": []\n}`
   );
-  configFileEdit.createFile(squirtConfigFileUri, {
-    contents: squirtContentBuffer,
+  configFileEdit.createFile(phiTemplaterConfigFileUri, {
+    contents: phiTemplaterContentBuffer,
   });
   workspace.applyEdit(configFileEdit);
   // TODO
-  //     createSquirtTemplatesFolder()
-  //     open squirt.config.json ???
+  //     createPhiTemplaterTemplatesFolder()
+  //     open phiTemplater.config.json ???
 }
 
-async function configureSquirt() {
+async function configurePhiTemplater() {
   const workspaceFolders = workspace.workspaceFolders;
   if (workspaceFolders === undefined || workspaceFolders.length === 0) {
-    window.showErrorMessage('Open a workspace before configuring Squirt');
+    window.showErrorMessage(
+      'Open a workspace before configuring Phi Templater'
+    );
   } else if (workspaceFolders.length === 1) {
-    if (await isSquirtConfigured()) {
-      window.showErrorMessage('Squirt is already configured');
+    if (await isPhiTemplaterConfigured()) {
+      window.showErrorMessage('Phi Templater is already configured');
     } else {
-      configureSquirtForWorkspace(workspaceFolders[0]);
+      configurePhiTemplaterForWorkspace(workspaceFolders[0]);
     }
   } else if (workspaceFolders.length > 1) {
     let unconfiguredWorkspaceFolders = [];
     for (const folder of workspaceFolders) {
-      if (!(await isSquirtConfigured(folder))) {
+      if (!(await isPhiTemplaterConfigured(folder))) {
         unconfiguredWorkspaceFolders.push(folder);
       }
     }
     if (unconfiguredWorkspaceFolders.length === 0) {
       window.showErrorMessage(
-        'Squirt is already configured for all workspaces'
+        'Phi Templater is already configured for all workspaces'
       );
     } else if (unconfiguredWorkspaceFolders.length === 1) {
-      configureSquirtForWorkspace(unconfiguredWorkspaceFolders[0]);
+      configurePhiTemplaterForWorkspace(unconfiguredWorkspaceFolders[0]);
     } else if (unconfiguredWorkspaceFolders.length > 1) {
       const workspaceFolderSelectorOptions = {
         title: 'Choose Workspace Folders to Configure',
@@ -95,8 +100,8 @@ async function configureSquirt() {
           (folder) => folder.name === folderName
         );
         if (folder) {
-          console.log('configured squirt for: ', folder.name);
-          configureSquirtForWorkspace(folder);
+          console.log('configured PhiTemplater for: ', folder.name);
+          configurePhiTemplaterForWorkspace(folder);
         }
       }
     } else {
@@ -110,40 +115,42 @@ async function configureSquirt() {
 }
 
 const getConfig = async () => {
-  const configFile = (await workspace.findFiles('squirt.config.json'))[0];
+  const configFile = (
+    await workspace.findFiles('*/phiTemplater.config.json')
+  )[0];
   const configBytes = await workspace.fs.readFile(configFile);
   const configRaw = new TextDecoder().decode(configBytes);
-  const config: SquirtConfig = JSON.parse(configRaw);
+  const config: PhiTemplaterConfig = JSON.parse(configRaw);
   return config;
 };
 
 // Show QuickPick and return user-chosen template
-const getTemplateToSquirt = () => {
+const getTemplateToInstance = () => {
   // pass
 };
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('Squirt activated');
+  console.log('Phi Templater activated');
 
   workspace.onDidSaveTextDocument((document: vscode.TextDocument) => {
     console.log('omg we saved');
   });
 
-  // TODO: enable this only when squirt is not already configured OR window error when attempted
+  // TODO: enable this only when phiTemplater is not already configured OR window error when attempted
   context.subscriptions.push(
-    commands.registerCommand('squirt.configure', configureSquirt)
+    commands.registerCommand('phitemplater.configure', configurePhiTemplater)
   );
 
-  let squirtAltCmdDisposable = vscode.commands.registerCommand(
-    'squirt.squirtAlt',
+  let phiTemplaterAltCmdDisposable = commands.registerCommand(
+    'phitemplater.instanceTemplateAlt',
     async () => {
       const templatesDir = getTemplatesDir();
       console.log('🚀 ~ templatesDir:', templatesDir);
     }
   );
 
-  let squirtCmdDisposable = vscode.commands.registerCommand(
-    'squirt.squirt',
+  let phiTemplaterCmdDisposable = vscode.commands.registerCommand(
+    'phitemplater.instanceTemplate',
     async () => {
       const config = await getConfig();
       const templateNames: string[] = config.templates.map(
@@ -182,7 +189,7 @@ export function activate(context: vscode.ExtensionContext) {
         // );
         // console.log("🚀 ~ relativePattern:", relativePattern);
         const files = await vscode.workspace.findFiles(
-          'squirtTemplates/test/test.squirt'
+          'instanceTemplates/test/test.instanceTemplate'
         );
         console.log('🚀 ~ files:', files);
         const file = files[0];
@@ -201,16 +208,16 @@ export function activate(context: vscode.ExtensionContext) {
       //   const options = { extension: null, templatesPath: 'test' }; // todo came from args
       //   const templatePath = path.resolve(
       //     __dirname,
-      //     './internalTemplates/squirtConfig.json'
+      //     "./internalTemplates/phiTemplaterConfig.json"
       //   );
       //   const destinationFileName =
-      //     '.squirtrc' + (options.extension ? '.json' : '');
+      //     ".phitemplaterc" + (options.extension ? ".json" : "");
       //   const destinationPath = path.resolve(directoryPath, destinationFileName);
 
       //   const templateFileContents = (await fs.readFile(templatePath)).toString();
 
       //   const defaultTemplateValues = {
-      //     templatesPath: './squirtTemplates',
+      //     templatesPath: "./phiTemplates",
       //   };
 
       //   const templateValues = merge(defaultTemplateValues, {
@@ -229,18 +236,17 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(
-    commands.registerCommand('squirt.updateConfig', () => {
+    commands.registerCommand('phitemplater.updateConfig', () => {
       console.log('update config test');
       window.showInformationMessage('update config test');
     })
   );
 
-  context.subscriptions.push(squirtAltCmdDisposable);
-  context.subscriptions.push(squirtCmdDisposable);
-  // context.subscriptions.push(updateConfigCmdDisposable);
+  context.subscriptions.push(phiTemplaterAltCmdDisposable);
+  // context.subscriptions.push(phiTemplaterCmdDisposable);
 }
 
 // This method is called when your extension is deactivated
 export function deactivate() {
-  console.log('Squirt deactivated');
+  console.log('Phi Templater deactivated');
 }

@@ -1,17 +1,17 @@
-export interface SquirtConfigTemplateFile {
+export interface PhiTemplaterConfigTemplateFile {
   templateFilePath: string;
   templateFileInstancePath: string;
 }
-export interface SquirtConfigTemplate {
+export interface PhiTemplaterConfigTemplate {
   templateDir: string;
   templateName: string;
   identifierPrefix?: string;
   identifierSuffix?: string;
-  templateFiles: Array<SquirtConfigTemplateFile>;
+  templateFiles: Array<PhiTemplaterConfigTemplateFile>;
 }
-export interface SquirtConfig {
+export interface PhiTemplaterConfig {
   templatesDir: string;
   identifierPrefix: string;
   identifierSuffix: string;
-  templates: Array<SquirtConfigTemplate>;
+  templates: Array<PhiTemplaterConfigTemplate>;
 }
