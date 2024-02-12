@@ -53,7 +53,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   let phiTemplaterCmdDisposable = vscode.commands.registerCommand(
-    'phi-templater.instanceTemplate',
+    'phiTemplater.instanceTemplate',
     async () => {
       const config = await getConfig();
       const templateNames: string[] = config.templates.map(
@@ -139,7 +139,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   let updateConfigCmdDisposable = vscode.commands.registerCommand(
-    'phi-templater.updateConfig',
+    'phiTemplater.updateConfig',
     () => {
       console.log('update config test');
       vscode.window.showInformationMessage('update config test');

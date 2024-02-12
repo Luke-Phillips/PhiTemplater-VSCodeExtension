@@ -1,5 +1,5 @@
 {
-  "name": "phi-templater",
+  "name": "phiTemplater",
   "displayName": "Phi Templater",
   "description": "generate files from templates",
   "version": "0.0.1",
@@ -34,20 +34,20 @@
   "contributes": {
     "commands": [
       {
-        "command": "phi-templater.instanceTemplate",
-        "title": "Instance Template"
+        "command": "phiTemplater.instanceTemplate",
+        "title": "Instance Phi Template"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "command": "phi-templater.instanceTemplate",
+          "command": "phiTemplater.instanceTemplate",
           "when": "false"
         }
       ],
       "explorer/context": [
         {
-          "command": "phi-templater.instanceTemplate",
+          "command": "phiTemplater.instanceTemplate",
           "group": "5_cutcopypaste@9999",
           "when": "explorerResourceIsFolder"
         }
