@@ -38,15 +38,15 @@
       "title": "Phi Templater",
       "properties": {
         "phiTemplater.templatePath.global": {
-          "phiTemplater.templatePath.local": {
-            "type": "string",
-            "scope": "window",
-            "default": "./phiTemplates",
-            "description": "Relative path to your workspace templates"
-          },
           "type": "string",
           "scope": "machine",
           "description": "Absolute path to your global templates"
+        },
+        "phiTemplater.templatePath.local": {
+          "type": "string",
+          "scope": "window",
+          "default": "./phiTemplates",
+          "description": "Relative path to your workspace templates"
         },
         "phiTemplater.dsl.codePrefix": {
           "type": "string",
