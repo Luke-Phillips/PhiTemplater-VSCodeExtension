@@ -1,5 +1,5 @@
 {
-  "templatesDir": "./exampleSquirtTemplates",
+  "templatesDir": "./exampleTemplates",
   "identifierPrefix": "$<",
   "identifierSuffix": ">$",
   "templates": [
@@ -8,7 +8,7 @@
       "templateDir": "templateDir",
       "templateFiles": [
         {
-          "templateFilePath": "path/to/template.ext.squirt",
+          "templateFilePath": "path/to/template.ext.phiTemplate",
           "templateFileInstancePath": "path/to/instance/can/include/variables.ext",
           "templateFileIdentifierPrefix": "",
           "templateFileIdentifierSuffix": ""

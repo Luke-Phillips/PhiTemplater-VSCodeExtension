@@ -1,33 +1,53 @@
 {
-  "name": "squirt",
-  "displayName": "Squirt",
+  "name": "phi-templater",
+  "displayName": "Phi Templater",
   "description": "generate files from templates",
   "version": "0.0.1",
+  "publisher": "luke-phillips",
+  "author": "Luke Phillips",
+  "contributors": [
+    {
+      "name": "Luke Phillips",
+      "email": "luke.thomas.phillips@gmail.com",
+      "url": "https://www.lukephillips.dev"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Luke-Phillips/PhiTemplater-VSCodeExtension"
+  },
   "engines": {
     "vscode": "^1.73.0"
   },
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "phi",
+    "templater",
+    "templator",
+    "templates",
+    "template"
+  ],
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "squirt.squirt",
-        "title": "Squirt"
+        "command": "phi-templater.instanceTemplate",
+        "title": "Instance Template"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "command": "squirt.squirt",
+          "command": "phi-templater.instanceTemplate",
           "when": "false"
         }
       ],
       "explorer/context": [
         {
-          "command": "squirt.squirt",
+          "command": "phi-templater.instanceTemplate",
           "group": "5_cutcopypaste@9999",
           "when": "explorerResourceIsFolder"
         }

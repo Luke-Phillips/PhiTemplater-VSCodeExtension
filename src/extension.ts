@@ -1,16 +1,16 @@
 import * as vscode from 'vscode';
 import { TextDecoder } from 'node:util';
 import {
-  SquirtConfig,
-  SquirtConfigTemplate,
-  SquirtConfigTemplateFile,
+  PhiTemplaterConfig,
+  PhiTemplaterConfigTemplate,
+  PhiTemplaterConfigTemplateFile,
 } from './interfaces/configInterfaces';
 import { TemplateInstanceData } from './interfaces/templateInstanceInterfaces';
 
 // begin alt
 const getTemplatesDir = async () => {
   const configFilePath = (
-    await vscode.workspace.findFiles('*/squirt.config.json')
+    await vscode.workspace.findFiles('*/phiTemplater.config.json')
   )[0];
   return configFilePath.path.split('/').slice(0, -1).join('/');
 };
@@ -23,37 +23,37 @@ const getTemplatesDir = async () => {
 
 const getConfig = async () => {
   const configFile = (
-    await vscode.workspace.findFiles('*/squirt.config.json')
+    await vscode.workspace.findFiles('*/phiTemplater.config.json')
   )[0];
   const configBytes = await vscode.workspace.fs.readFile(configFile);
   const configRaw = new TextDecoder().decode(configBytes);
-  const config: SquirtConfig = JSON.parse(configRaw);
+  const config: PhiTemplaterConfig = JSON.parse(configRaw);
   return config;
 };
 
 // Show QuickPick and return user-chosen template
-const getTemplateToSquirt = () => {
+const getTemplateToInstance = () => {
   // pass
 };
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('Squirt activated');
+  console.log('Phi Templater activated');
 
   vscode.workspace.onDidSaveTextDocument((document: vscode.TextDocument) => {
     vscode.window.showInformationMessage('omg we saved');
     console.log('omg we saved');
   });
 
-  let squirtAltCmdDisposable = vscode.commands.registerCommand(
-    'squirt.squirtAlt',
+  let phiTemplaterAltCmdDisposable = vscode.commands.registerCommand(
+    'phiTemplater.phiTemplaterAlt',
     async () => {
       const templatesDir = getTemplatesDir();
       console.log('🚀 ~ templatesDir:', templatesDir);
     }
   );
 
-  let squirtCmdDisposable = vscode.commands.registerCommand(
-    'squirt.squirt',
+  let phiTemplaterCmdDisposable = vscode.commands.registerCommand(
+    'phi-templater.instanceTemplate',
     async () => {
       const config = await getConfig();
       const templateNames: string[] = config.templates.map(
@@ -91,7 +91,7 @@ export function activate(context: vscode.ExtensionContext) {
         // );
         // console.log("🚀 ~ relativePattern:", relativePattern);
         const files = await vscode.workspace.findFiles(
-          'squirtTemplates/test/test.squirt'
+          'instanceTemplates/test/test.instanceTemplate'
         );
         console.log('🚀 ~ files:', files);
         const file = files[0];
@@ -109,16 +109,16 @@ export function activate(context: vscode.ExtensionContext) {
       //   const options = { extension: null, templatesPath: "test" }; // todo came from args
       //   const templatePath = path.resolve(
       //     __dirname,
-      //     "./internalTemplates/squirtConfig.json"
+      //     "./internalTemplates/phiTemplaterConfig.json"
       //   );
       //   const destinationFileName =
-      //     ".squirtrc" + (options.extension ? ".json" : "");
+      //     ".phitemplaterc" + (options.extension ? ".json" : "");
       //   const destinationPath = path.resolve(directoryPath, destinationFileName);
 
       //   const templateFileContents = (await fs.readFile(templatePath)).toString();
 
       //   const defaultTemplateValues = {
-      //     templatesPath: "./squirtTemplates",
+      //     templatesPath: "./phiTemplates",
       //   };
 
       //   const templateValues = merge(defaultTemplateValues, {
@@ -139,19 +139,19 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   let updateConfigCmdDisposable = vscode.commands.registerCommand(
-    'squirt.updateConfig',
+    'phi-templater.updateConfig',
     () => {
       console.log('update config test');
       vscode.window.showInformationMessage('update config test');
     }
   );
 
-  context.subscriptions.push(squirtAltCmdDisposable);
-  // context.subscriptions.push(squirtCmdDisposable);
+  context.subscriptions.push(phiTemplaterAltCmdDisposable);
+  // context.subscriptions.push(phiTemplaterCmdDisposable);
   context.subscriptions.push(updateConfigCmdDisposable);
 }
 
 // This method is called when your extension is deactivated
 export function deactivate() {
-  console.log('Squirt deactivated');
+  console.log('Phi Templater deactivated');
 }
