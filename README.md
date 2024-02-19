@@ -12,7 +12,7 @@ Install Phi Templater from the [VS Code Marketplace](https://marketplace.visuals
 
 ### 2. Create Templates Folder
 
-Create a folder in your workspace called `phiTemplates/`. This folder will house templates that can be used in this workspace. The name and path to this folder can be customized in the extension settings. Additionally, you may also create a global templates folder for templates you know you'll use in across multiple projects. See [Extension Settings](#extension-settings).
+Create a folder in your workspace called `phiTemplates/`. This folder will house templates that can be used in this workspace. The name and path to this folder can be customized in the extension settings. Additionally, you may also create a global templates folder for templates to be used across multiple projects. See [Extension Settings](#extension-settings).
 
 ### 3. Create a Template
 
