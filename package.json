@@ -1,7 +1,7 @@
 {
   "name": "phitemplater",
   "displayName": "Phi Templater",
-  "description": "generate files from templates",
+  "description": "Generate files and folders from user-defined templates with support for variables",
   "version": "0.0.1",
   "publisher": "luke-phillips",
   "author": "Luke Phillips",
@@ -12,12 +12,8 @@
       "url": "https://www.lukephillips.dev"
     }
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Luke-Phillips/PhiTemplater-VSCodeExtension"
-  },
   "engines": {
-    "vscode": "^1.73.0"
+    "vscode": "^1.86.0"
   },
   "categories": [
     "Other"
@@ -29,6 +25,20 @@
     "templates",
     "template"
   ],
+  "icon": "images/phi-lowercase.png",
+  "galleryBanner": {
+    "color": "#792fad",
+    "theme": "dark"
+  },
+  "homepage": "https://github.com/Luke-Phillips/PhiTemplater-VSCodeExtension/blob/main/README.md",
+  "bugs": {
+    "url": "https://github.com/Luke-Phillips/PhiTemplater-VSCodeExtension/issues",
+    "email": "luke.thomas.phillips@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Luke-Phillips/PhiTemplater-VSCodeExtension.git"
+  },
   "activationEvents": [
     "workspaceContains:phiTemplater.config.json"
   ],

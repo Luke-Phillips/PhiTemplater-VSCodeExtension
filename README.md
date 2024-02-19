@@ -1,66 +1,73 @@
-# Phi Templater README
+# Phi Templater
 
-This is the README for your extension "Phi Templater". After writing up a brief description, we recommend including the following sections.
+Create re-usable templates to easily generate files and folders in your projects. Use variables in the file body or file name for dynamic templates.
 
-## Features
+![lowercase greek letter phi](images/phi-lowercase.png)
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## How to
 
-For example if there is an image subfolder under your extension project workspace:
+### 1. Install Phi Templater
 
-\!\[feature X\]\(images/feature-x.png\)
+Install Phi Templater from the [VS Code Marketplace](https://marketplace.visualstudio.com/vscode)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+### 2. Create Templates Folder
 
-## Requirements
+Create a folder in your workspace called `phiTemplates/`. This folder will house templates that can be used in this workspace. The name and path to this folder can be customized in the extension settings. Additionally, you may also create a global templates folder for templates you know you'll use in across multiple projects. See [Extension Settings](#extension-settings).
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+### 3. Create a Template
+
+Add another folder within `phiTemplates/` to represent a template. The name of the template is the folder name. For example, a folder at `phiTemplates/myTemplate/` would create an empty template called `myTemplate`. Add any files and folders you want to your newly created template folder. For example, `phiTemplates/myTemplate/myFunction.ts`.
+
+### 4. Use Template Syntax
+
+Phi Templater currently supports basic variables within your templates. Variables can be used in files and folders with the `.phitemp` file extension. You can add variables within the contents of your files, as well as the names of your files and folders. Variable are denoted with a `$` prefix and suffix (they can be escaped with `\$`).
+
+Folder name example (without variable): `myFolder`.
+
+Folder name example (with variable): `$x$Folder`.
+
+File name example (without variable): `myFunction.ts`.
+
+File name example (with variable): `$myFunction$.ts.phitemp`.
+
+File content example:
+
+```
+export function $functionName$($args$): $returnType$ {
+    // $comment$
+    const x: $returnType$ = null;
+    return x;
+}
+```
+
+### 5. Instance A Template
+
+When you are ready to instance a template into one of you projects, right-click on the target folder in the File Explorer and select `Instance Phi Template` from the menu. This will create a pop-up that allows you to choose which template you want. After selecting a template, you will be prompted to fill in the values of all the template's variables.
+
+Viola!
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
-- `myExtension.enable`: Enable/disable this extension.
-- `myExtension.thing`: Set to `blah` to do something.
+- `phiTemplater.templatePath.local`: Provide a path to your workspace's templates folder. The path should be relative to your workspace.
+- `phiTemplater.templatePath.global`: Provide a path (absolute) to a global templates folder on your machine that you can use in any of your projects (not synced between machines).
 
 ## Known Issues
 
 None. Please provide feedback if you encounter any bugs.
 
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
 ## Roadmap
 
-- Template language expansion (functions, arrays, looping, logical operators)
 - Template syntax highlighting
+- Template language expansion
+  - built-in functions (variable transformation, variable order, etc)
+  - arrays
+  - looping
+  - logical operators
+
+## Release Notes
 
 ### 1.0.0
 
-Initial release of Phi Templater
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-- [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-- Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-- Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-- Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-- [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Initial release of Phi Templater.
