@@ -40,25 +40,13 @@
         "phiTemplater.templatePath.global": {
           "type": "string",
           "scope": "machine",
-          "description": "Absolute path to your global templates"
+          "description": "Path to your global templates directory"
         },
         "phiTemplater.templatePath.local": {
           "type": "string",
           "scope": "window",
-          "default": "./phiTemplates",
-          "description": "Relative path to your workspace templates"
-        },
-        "phiTemplater.dsl.codePrefix": {
-          "type": "string",
-          "scope": "window",
-          "default": "$",
-          "description": "Symbol denoting the start of template logic"
-        },
-        "phiTemplater.dsl.codeSuffix": {
-          "type": "string",
-          "scope": "window",
-          "default": "$",
-          "description": "Symbol denoting the end of template logic"
+          "default": "phiTemplates",
+          "description": "Relative path to your workspace templates directory"
         }
       }
     },
