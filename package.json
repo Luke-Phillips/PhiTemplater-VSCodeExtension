@@ -30,6 +30,7 @@
     "color": "#c498d4",
     "theme": "light"
   },
+  "license": "MIT (see LICENSE.txt)",
   "homepage": "https://github.com/Luke-Phillips/PhiTemplater-VSCodeExtension/blob/main/README.md",
   "bugs": {
     "url": "https://github.com/Luke-Phillips/PhiTemplater-VSCodeExtension/issues",

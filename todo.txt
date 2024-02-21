@@ -1,0 +1,9 @@
+- Template syntax highlighting
+- Template language expansion
+  - built-in functions (variable transformation, variable order, etc)
+  - arrays
+  - looping
+  - logical operators
+- File icons
+- command palette instance
+- tests
