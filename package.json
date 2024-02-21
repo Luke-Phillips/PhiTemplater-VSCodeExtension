@@ -25,10 +25,10 @@
     "templates",
     "template"
   ],
-  "icon": "images/phi-lowercase.png",
+  "icon": "images/icon-purple-light-background.png",
   "galleryBanner": {
-    "color": "#792fad",
-    "theme": "dark"
+    "color": "#c498d4",
+    "theme": "light"
   },
   "homepage": "https://github.com/Luke-Phillips/PhiTemplater-VSCodeExtension/blob/main/README.md",
   "bugs": {

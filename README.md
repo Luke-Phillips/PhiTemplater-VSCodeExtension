@@ -1,8 +1,6 @@
 # Phi Templater
 
-Create re-usable templates to easily generate files and folders in your projects. Use variables in the file body or file name for dynamic templates.
-
-![lowercase greek letter phi](images/phi-lowercase.png)
+Create re-usable templates to easily generate files and folders in your projects. Supports the use of variables in the file body or file name for dynamic templates.
 
 ## How to
 
@@ -20,15 +18,15 @@ Add another folder within `phiTemplates/` to represent a template. The name of t
 
 ### 4. Use Template Syntax
 
-Phi Templater currently supports basic variables within your templates. Variables can be used in files and folders with the `.phitemp` file extension. You can add variables within the contents of your files, as well as the names of your files and folders. Variable are denoted with a `$` prefix and suffix (they can be escaped with `\$`).
+Phi Templater currently supports basic variables within your templates. You can add variables within the contents of your files, as well as the names of your files and folders. Optionally, add the `.phitemp` file extension to avoid unwanted syntax highlighting and errors. Variables are denoted with a `$` prefix and suffix (they can be escaped with `\$`).
 
 Folder name example (without variable): `myFolder`.
 
-Folder name example (with variable): `$x$Folder`.
+Folder name example (with variable): `my$x$Folder`.
 
 File name example (without variable): `myFunction.ts`.
 
-File name example (with variable): `$myFunction$.ts.phitemp`.
+File name example (with variable): `$functionName$.ts.phitemp`.
 
 File content example:
 
@@ -42,7 +40,7 @@ export function $functionName$($args$): $returnType$ {
 
 ### 5. Instance A Template
 
-When you are ready to instance a template into one of you projects, right-click on the target folder in the File Explorer and select `Instance Phi Template` from the menu. This will create a pop-up that allows you to choose which template you want. After selecting a template, you will be prompted to fill in the values of all the template's variables.
+When you are ready to instance a template into one of your projects, right-click on the target folder in the File Explorer and select `Instance Phi Template` from the menu. This will create a pop-up that allows you to choose which template you want. After selecting a template, you will be prompted to fill in the values of all the template's variables.
 
 Viola!
 
@@ -65,6 +63,7 @@ None. Please provide feedback if you encounter any bugs.
   - arrays
   - looping
   - logical operators
+- File icons
 
 ## Release Notes
 
