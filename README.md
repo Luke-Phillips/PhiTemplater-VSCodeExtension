@@ -67,6 +67,10 @@ None. Please provide feedback if you encounter any bugs.
 
 ## Release Notes
 
+##### 1.0.1
+
+Marketplace cosmetic changes
+
 ### 1.0.0
 
 Initial release of Phi Templater.
