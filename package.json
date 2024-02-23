@@ -25,7 +25,7 @@
     "templates",
     "template"
   ],
-  "icon": "images/icon-purple-light-background.JPG",
+  "icon": "images/icon-no-bg.png",
   "galleryBanner": {
     "color": "#c498d4",
     "theme": "light"

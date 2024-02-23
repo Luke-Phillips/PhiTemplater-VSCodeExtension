@@ -6,7 +6,7 @@ Create re-usable templates to easily generate files and folders in your projects
 
 ### 1. Install Phi Templater
 
-Install Phi Templater from the [VS Code Marketplace](https://marketplace.visualstudio.com/vscode)
+Install Phi Templater from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=luke-phillips.phitemplater)
 
 ### 2. Create Templates Folder
 
@@ -22,7 +22,7 @@ Phi Templater currently supports basic variables within your templates. You can 
 
 Folder name example (without variable): `myFolder`.
 
-Folder name example (with variable): `my$x$Folder`.
+Folder name example (with variable): `my$var$Folder`.
 
 File name example (without variable): `myFunction.ts`.
 
