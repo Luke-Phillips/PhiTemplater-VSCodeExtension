@@ -1,6 +1,6 @@
 # Phi Templater
 
-Create re-usable templates to easily generate files and folders in your projects. Supports the use of variables in the file body or file name for dynamic templates.
+Create re-usable templates to easily generate files and folders in your projects. Supports the use of variables in the file body or file name for dynamic templates. This project was inspired by [squirt-cli](https://github.com/drock07/squirt-cli) and is an attempt to make a similar tool cooked right into VS Code. The goal is to save time and increase consistency across teams.
 
 ## How to
 
@@ -42,7 +42,7 @@ export function $functionName$($args$): $returnType$ {
 
 When you are ready to instance a template into one of your projects, right-click on the target folder in the File Explorer and select `Instance Phi Template` from the menu. This will create a pop-up that allows you to choose which template you want. After selecting a template, you will be prompted to fill in the values of all the template's variables.
 
-Viola!
+Voila!
 
 ## Extension Settings
 
@@ -67,9 +67,9 @@ None. Please provide feedback if you encounter any bugs.
 
 ## Release Notes
 
-##### 1.0.1
+##### 1.0.1-2
 
-Marketplace cosmetic changes
+Marketplace cosmetic changes, changes to docs
 
 ### 1.0.0
 

@@ -2,7 +2,7 @@
   "name": "phitemplater",
   "displayName": "Phi Templater",
   "description": "Generate dynamic files and folders from user-defined templates with variables",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "luke-phillips",
   "author": "Luke Phillips",
   "contributors": [
